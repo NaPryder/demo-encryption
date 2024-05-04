@@ -1,12 +1,12 @@
-export interface EncryptedDataResponse {
+export interface EncryptedData {
   data1: string;
   data2: string;
 }
 
-export interface EncryptionBody {
+export interface CommonResponse {
   successful: boolean,
   error_code: string,
-  data: null | EncryptedDataResponse | EncryptionPayload
+  data: null | EncryptedData | EncryptionPayload
 }
 
 
