@@ -12,14 +12,14 @@ import { DecryptionDto } from './dto/decryption.dto';
 import {
   ErrorsInterceptor,
   TransformationInterceptor,
-} from 'src/encryptions/encryptions.interceptor';
+} from './encryptions.interceptor';
 
 @ApiTags('Encryption')
 @UseInterceptors(new TransformationInterceptor())
 @UseInterceptors(new ErrorsInterceptor())
 @Controller()
 export class EncryptionController {
-  constructor(private readonly appService: EncryptionService) { }
+  constructor(private readonly appService: EncryptionService) {}
 
   @Post('get-encrypt-data')
   encryption(@Body(ValidationPipe) body: EncryptionDto) {
