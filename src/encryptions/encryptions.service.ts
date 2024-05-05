@@ -1,44 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { EncryptedData, CommonResponse, EncryptionPayload } from './interfaces/encryption.interface'
+import {
+  EncryptedData,
+  EncryptionPayload,
+} from './interfaces/encryption.interface';
+import {
+  decryptWithAESKey,
+  decryptWithPublicKey,
+  encryptWithAESKey,
+  encryptWithPrivateKey,
+} from './encryptions.utils';
 
 @Injectable()
 export class EncryptionService {
   encryption(body: EncryptionPayload): EncryptedData {
-    const { payload } = body
-    // validate 
-    console.log('payload :>> ', payload);
+    const { payload } = body;
 
     try {
+      const data1 = encryptWithPrivateKey(payload);
+      const data2 = encryptWithAESKey(payload);
 
-      return {
-        data1: "123",
-        data2: "sadf"
-      }
-
+      return { data1, data2 };
     } catch (error) {
-      throw error
-
+      console.error(error);
+      throw error;
     }
-
   }
 
-
   decryption(body: EncryptedData): EncryptionPayload {
-    const { data1, data2 } = body
-    // validate 
-    console.log('data1 :>> ', data1);
-    console.log('data2 :>> ', data2);
+    const { data1, data2 } = body;
 
     try {
+      const publicKeyDecrypted = decryptWithPublicKey(data1);
+      const AESDecrypted = decryptWithAESKey(data2);
 
       return {
-        payload: "234234"
-      }
-
+        payload: AESDecrypted || publicKeyDecrypted,
+      };
     } catch (error) {
-      throw error
-
+      console.error(error);
+      throw error;
     }
-
   }
 }

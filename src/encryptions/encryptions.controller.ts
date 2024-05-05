@@ -1,9 +1,18 @@
-import { Body, Controller, Get, Post, UseInterceptors, ValidationPipe } from '@nestjs/common';
-import { EncryptionService } from './encryptions.service'
+import {
+  Body,
+  Controller,
+  Post,
+  UseInterceptors,
+  ValidationPipe,
+} from '@nestjs/common';
+import { EncryptionService } from './encryptions.service';
 import { ApiTags } from '@nestjs/swagger';
 import { EncryptionDto } from './dto/encryption.dto';
 import { DecryptionDto } from './dto/decryption.dto';
-import { ErrorsInterceptor, TransformationInterceptor } from 'src/encryptions/encryptions.interceptor';
+import {
+  ErrorsInterceptor,
+  TransformationInterceptor,
+} from 'src/encryptions/encryptions.interceptor';
 
 @ApiTags('Encryption')
 @UseInterceptors(new TransformationInterceptor())
@@ -12,13 +21,12 @@ import { ErrorsInterceptor, TransformationInterceptor } from 'src/encryptions/en
 export class EncryptionController {
   constructor(private readonly appService: EncryptionService) { }
 
-
-  @Post("get-encrypt-data")
+  @Post('get-encrypt-data')
   encryption(@Body(ValidationPipe) body: EncryptionDto) {
     return this.appService.encryption(body);
   }
 
-  @Post("get-decrypt-data")
+  @Post('get-decrypt-data')
   decryption(@Body(ValidationPipe) body: DecryptionDto) {
     return this.appService.decryption(body);
   }

@@ -1,14 +1,13 @@
-import { IsNotEmpty, IsString, Length } from "class-validator";
-import { EncryptionPayload } from "../interfaces/encryption.interface";
+import { IsNotEmpty, IsString, Length } from 'class-validator';
+import { EncryptionPayload } from '../interfaces/encryption.interface';
 import { ApiProperty } from '@nestjs/swagger';
-
 
 export class EncryptionDto implements EncryptionPayload {
   @ApiProperty({
     example: 'some text.',
-    required: true
+    required: true,
   })
-  @Length(0, 20)
+  @Length(0, 2000)
   @IsString()
   @IsNotEmpty()
   payload: string;
